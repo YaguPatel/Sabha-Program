@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Program Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<h1 class="title">Sabha Program</h1>
+<body>
+    <div class="form-container">
+        <form method="post" id="event-form">
+            Number of Events: <input type="number" id="num_events" name="num_events" value="{{ num_events }}"><br><br>
+            Date: <input type="date" name="date" required><br><br>
+        
+            <div id="event-inputs">
+                <!-- JavaScript will populate this section -->
+            </div>
+        
+            <input type="submit" value="Generate Excel">
+        </form>
+    </div>
+    
+    <script>
+        const numEventsInput = document.getElementById("num_events");
+        const eventInputsContainer = document.getElementById("event-inputs");
+
+        numEventsInput.addEventListener("input", function () {
+            const numEvents = parseInt(numEventsInput.value);
+
+            let html = "";
+            for (let i = 0; i < numEvents; i++) {
+                html += `
+                    <fieldset>
+                        <legend>Event ${i + 1}</legend>
+                        From: <input type="time" name="time_from_${i}" required>
+                        To: <input type="time" name="time_to_${i}" required><br>
+                        Programme: 
+                        <select name="program_${i}">
+                            <option value="">Select Programme</option>
+                            <option value="Compere 1">Compere 1</option>
+                            <option value="Compere 2">Compere 2</option>
+                            <option value="Video 1">Video 1</option>
+                            <option value="Video 2">Video 2</option>
+                        </select>
+                        <input type="text" name="custom_program_${i}" placeholder="Enter custom program"><br>
+                        Subject: <input type="text" name="subject_${i}" required><br>
+                        Presenter: <input type="text" name="presenter_${i}" required><br>
+                        <hr>
+                    </fieldset>
+                `;
+            }
+
+            eventInputsContainer.innerHTML = html;
+        });
+    </script>
+</body>
+</html>

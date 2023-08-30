@@ -1,0 +1,8 @@
+/* Apply styles to the title */
+.title {
+    color: #000000; /* Black color */
+    font-size: 36px;
+    font-weight: bold; /* Bold font */
+    text-align: center;
+    padding: 20px 0;
+}
